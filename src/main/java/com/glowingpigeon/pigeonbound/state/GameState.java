@@ -1,10 +1,14 @@
 package com.glowingpigeon.pigeonbound.state;
 
-public interface GameState {
-    public void windowEvent();
-    public void mouseEvent();
-    public void keyEvent();
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.*;
+import javafx.stage.*;
 
-    public void update();
-    public void render();
+public abstract class GameState {
+    public void windowEvent(WindowEvent e) {}
+    public void mouseEvent(MouseEvent e) {}
+    public void keyEvent(KeyEvent e) {}
+
+    public void update() {}
+    public void render(GraphicsContext gc) {}
 }
