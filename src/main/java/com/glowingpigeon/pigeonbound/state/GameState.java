@@ -1,3 +1,5 @@
+package com.glowingpigeon.pigeonbound.state;
+
 public interface GameState {
     public void windowEvent();
     public void mouseEvent();
