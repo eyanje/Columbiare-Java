@@ -9,6 +9,8 @@ public abstract class GameState {
     public void mouseEvent(MouseEvent e) {}
     public void keyEvent(KeyEvent e) {}
 
+    public GameState getNextState() { return null; }
+
     public void update() {}
     public void render(GraphicsContext gc) {}
 }
