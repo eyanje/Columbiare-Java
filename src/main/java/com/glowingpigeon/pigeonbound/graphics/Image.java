@@ -55,10 +55,24 @@ public class Image {
         while (img.getProgress() < 1);
     }
     
+    /**
+     * Renders the image at the specified x and y
+     * @param gc the GraphicsContext on which the image renders
+     * @param x the x-coordinate of the top-left corner of the image
+     * @param y the y-coordinate of the top-left corner of the image
+     */
     public void render(GraphicsContext gc, int x, int y) {
         render(gc, x, y, width, height);
     }
     
+    /**
+     * Renders the image at the specified x and y with the specified width and height
+     * @param gc the GraphicsContext on which the image renders
+     * @param x the x-coordinate of the top-left corner of the image
+     * @param y the y-coordinate of the top-left corner of the image
+     * @param width the width of the image, in pixels
+     * @param height the height of the image, in pixels
+     */
     public void render(GraphicsContext gc, int x, int y, int width, int height) {
         gc.drawImage(img, this.x, this.y, this.width, this.height, x, y, width, height);
     }
