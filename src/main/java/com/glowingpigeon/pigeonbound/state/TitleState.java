@@ -11,7 +11,7 @@ public class TitleState extends GameState {
     boolean transition;
 
     public TitleState() {
-        background = new Sprite();
+        background = new Sprite("sprites/title/title.spr");
         transition = false;
     }
 
@@ -46,6 +46,8 @@ public class TitleState extends GameState {
 
     @Override
     public void render(GraphicsContext gc) {
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
         gc.fillText("text", 10, 10);
         background.render(gc, 0, 0);
     }
