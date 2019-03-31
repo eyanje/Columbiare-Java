@@ -5,6 +5,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import com.glowingpigeon.pigeonbound.graphics.*;
+import com.glowingpigeon.pigeonbound.audio.*;
 
 public class TitleState extends GameState {
     Sprite background;
@@ -13,6 +14,8 @@ public class TitleState extends GameState {
     public TitleState() {
         background = new Sprite("sprites/title/title.spr");
         transition = false;
+
+        AudioManager.playMusic("audio/title.au");
     }
 
     @Override
