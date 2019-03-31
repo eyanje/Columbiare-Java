@@ -67,6 +67,10 @@ public class PigeonBound extends Application {
                 if (now - lastFrame > FRAME_LENGTH) {
                     state.update();
                     state.render(gc);
+                    GameState next = state.getNextState();
+                    if (next != null) {
+                        state = next;
+                    }
                     lastFrame = now;
                 }
             }

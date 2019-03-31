@@ -2,6 +2,7 @@ package com.glowingpigeon.pigeonbound.state;
 
 import com.glowingpigeon.pigeonbound.graphics.*;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -46,11 +47,26 @@ public class MenuState extends GameState {
                     menuOption = (menuOption + 1) % 3;
                 }
                 break;
+                default:
+                // Do nothing
+                break;
             }
         } else if (e.getEventType().equals(KeyEvent.KEY_RELEASED)) {
             if (e.getCode() == KeyCode.Z) {
                 transition = true;
             }
         }
+    }
+
+    @Override
+    public void update() {
+        background.tick();
+    }
+
+    @Override
+    public void render(GraphicsContext gc) {
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
+        
     }
 }
