@@ -18,7 +18,7 @@ public class Image {
     public Image(String path) {
         x = 0;
         y = 0;
-        
+
         img = ResourceManager.getImage(path);
         if (img == null) {
             width = 0;
@@ -28,6 +28,7 @@ public class Image {
             this.width = (int) img.getWidth();
             this.height = (int) img.getHeight();
         }
+
     }
     
     /**
