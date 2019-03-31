@@ -55,7 +55,7 @@ public class Image {
      * @param height The height of the subimage, in pixels
      */
     public Image(String path, int x, int y, int width, int height) {
-        img = ResourceManager.getImage(path);;
+        img = ResourceManager.getImage(path);
         this.x = x;
         this.y = y;
         this.width = width;
