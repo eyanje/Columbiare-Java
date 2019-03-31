@@ -1,3 +1,5 @@
 class/*.class
 .vscode
+.classpath
+.settings
 target
