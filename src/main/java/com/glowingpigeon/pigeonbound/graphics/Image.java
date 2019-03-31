@@ -1,7 +1,8 @@
 package com.glowingpigeon.pigeonbound.graphics;
 
 import javafx.scene.canvas.*;
-import java.io.InputStream;
+
+import com.glowingpigeon.pigeonbound.data.ResourceManager;
 
 public class Image {
     private javafx.scene.image.Image img;
@@ -18,14 +19,11 @@ public class Image {
         x = 0;
         y = 0;
 
-        InputStream stream = getClass().getClassLoader().getResourceAsStream(path);
-        if (stream == null) {
-            System.err.println("No image found at " + path);
-            System.err.println("Base Path: " + getClass().getClassLoader().getResource("."));
+        img = ResourceManager.getImage(path);
+        if (img == null) {
             width = 0;
             height = 0;
         } else {
-            img = new javafx.scene.image.Image(stream);
             while (img.getProgress() < 1);
             this.width = (int) img.getWidth();
             this.height = (int) img.getHeight();
