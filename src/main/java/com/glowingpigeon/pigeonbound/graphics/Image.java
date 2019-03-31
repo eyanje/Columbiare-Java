@@ -18,7 +18,7 @@ public class Image {
     public Image(String path) {
         x = 0;
         y = 0;
-
+        
         img = ResourceManager.getImage(path);
         if (img == null) {
             width = 0;
@@ -37,7 +37,7 @@ public class Image {
      * @param height The height of the subimage, in pixels
      */
     public Image(String path, int width, int height) {
-        img = new javafx.scene.image.Image(path);
+        img = ResourceManager.getImage(path);
         x = 0;
         y = 0;
         this.width = width;
@@ -55,7 +55,7 @@ public class Image {
      * @param height The height of the subimage, in pixels
      */
     public Image(String path, int x, int y, int width, int height) {
-        img = new javafx.scene.image.Image(path);
+        img = ResourceManager.getImage(path);;
         this.x = x;
         this.y = y;
         this.width = width;
