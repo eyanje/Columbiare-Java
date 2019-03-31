@@ -5,6 +5,7 @@ import com.glowingpigeon.pigeonbound.graphics.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
 
 public class MenuState extends GameState {
     Sprite background;
@@ -67,6 +68,9 @@ public class MenuState extends GameState {
     public void render(GraphicsContext gc) {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
-        
+        gc.setFont(Font.font(24));
+        gc.fillText("New Game", 60, 280);
+        gc.fillText("Continue", 60, 360);
+        gc.fillText("Settings", 60, 440);
     }
 }

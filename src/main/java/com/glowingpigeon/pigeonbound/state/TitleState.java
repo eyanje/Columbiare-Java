@@ -41,14 +41,13 @@ public class TitleState extends GameState {
     
     @Override
     public void update() {
-        
+        background.tick();
     }
 
     @Override
     public void render(GraphicsContext gc) {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
-        gc.fillText("text", 10, 10);
-        background.render(gc, 0, 0);
+        background.render(gc, 0, 0, (int) gc.getCanvas().getWidth(), (int) gc.getCanvas().getHeight());
     }
 }
