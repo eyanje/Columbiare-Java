@@ -1,8 +1,6 @@
 package com.glowingpigeon.pigeonbound.graphics;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
 
 import javafx.scene.canvas.*;
@@ -25,17 +23,17 @@ public class Sprite {
      */
     public Sprite(String path) {
         this();
-        URL url = getClass().getClassLoader().getResource(path);
+        InputStream stream = getClass().getClassLoader().getResourceAsStream(path);
 
         // Only continue if the file was found
-        if (url != null) {
-            
+        if (stream == null) {
+            System.err.println("Could not find spr file at " + path);
+            System.err.println("Base path: " + getClass().getClassLoader().getResource("."));
+        } else {
             try {
                 BufferedReader reader = new BufferedReader(
-                    new FileReader(
-                        new File(
-                            url.toURI()
-                        )
+                    new InputStreamReader(
+                        stream
                     )
                 );
                 Animation current = null;
@@ -78,13 +76,13 @@ public class Sprite {
                                             int t3 = Integer.parseInt(tokens[3]);
                                             frame = new Image(imgPath, t0, t1, t2, t3); // x y width height
                                         }
+                                    }
 
-                                        if (current == null) {
-                                            System.err.println("In " + path + " frame loaded before animation");
-                                        } else {
-                                            // Add frame to the last animation created
-                                            current.addFrame(frameLength, frame);
-                                        }
+                                    if (current == null) {
+                                        System.err.println("In " + path + " frame loaded before animation");
+                                    } else {
+                                        // Add frame to the last animation created
+                                        current.addFrame(frameLength, frame);
                                     }
                                 }
                             }
@@ -93,11 +91,40 @@ public class Sprite {
                     }
                 }
                 reader.close();
-            } catch (URISyntaxException ex) {
-                ex.printStackTrace();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+    
+    /**
+     * Gets the name of the current animation playing
+     * 
+     * @return the name of the current animation
+     */
+    public String getCurrentAnimationName() {
+        return current;
+    }
+
+    /**
+     * Sets the current animation to the one specified
+     * @param name the name of the animation to play
+     */
+    public void setCurrentAnimation(String name) {
+        if (animations.containsKey(name)) {
+            this.current = name;
+        }
+    }
+    
+    /**
+     * Gets the current animation playing
+     * @return the current animation playing
+     */
+    public Animation getCurrentAnimation() {
+        if (!animations.containsKey(current)) {
+            return null;
+        } else {    
+            return animations.get(current);
         }
     }
 
@@ -116,29 +143,14 @@ public class Sprite {
     }
 
     /**
-     * Gets the name of the current animation playing
-     * 
-     * @return the name of the current animation
-     */
-    public String getCurrentAnimationName() {
-        return current;
-    }
-
-    /**
-     * Gets the current animation playing
-     * @return the current animation playing
-     */
-    public Animation getCurrentAnimation() {
-        return animations.get(current);
-    }
-
-    /**
      * Advances the current animation by one frame
      */
     public void tick() {
-        animations.get(current).tick();
+        if (current != null && animations.containsKey(current)) {
+            animations.get(current).tick();
+        }
     }
-
+    
     /**
      * Renders the sprite at the specified x and y
      * @param gc the GraphicsContext on which the sprite renders
@@ -146,7 +158,7 @@ public class Sprite {
      * @param y the y-coordinate of the top-left corner of the sprite
      */
     public void render(GraphicsContext gc, int x, int y) {
-        if (animations != null && current != null && animations.get(current) != null) {
+        if (current != null && animations.get(current) != null) {
             animations.get(current).render(gc, x, y);
         }
     }
@@ -160,7 +172,7 @@ public class Sprite {
      * @param height the height of the sprite, in pixels
      */
     public void render(GraphicsContext gc, int x, int y, int width, int height) {
-        if (animations != null && current != null && animations.get(current) != null) {
+        if (current != null && animations.get(current) != null) {
             animations.get(current).render(gc, x, y, width, height);
         }
     }
