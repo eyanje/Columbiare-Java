@@ -2,13 +2,12 @@ package com.glowingpigeon.pigeonbound.state;
 
 import com.glowingpigeon.pigeonbound.graphics.*;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Font;
+import javafx.scene.canvas.*;
+import javafx.scene.input.*;
+import javafx.scene.text.*;
 
 public class MenuState extends GameState {
-    Sprite background;
+    private Sprite background;
     private int menuOption;
     private boolean transition;
 
@@ -36,12 +35,17 @@ public class MenuState extends GameState {
     }
 
     @Override
+    public void mouseEvent(MouseEvent e) {
+        
+    }
+
+    @Override
     public void keyEvent(KeyEvent e) {
-        if (e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+        if (e.getEventType() == KeyEvent.KEY_PRESSED) {
             switch (e.getCode()) {
                 case UP: {
                     // Subtract 1
-                    menuOption = (menuOption + 4) % 3;
+                    menuOption = (menuOption + 2) % 3;
                 }
                 break;
                 case DOWN: {
@@ -69,8 +73,10 @@ public class MenuState extends GameState {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
         gc.setFont(Font.font(24));
-        gc.fillText("New Game", 60, 280);
-        gc.fillText("Continue", 60, 360);
-        gc.fillText("Settings", 60, 440);
+
+        gc.fillOval(20, 280 + (80 * menuOption), 20, 20);
+        gc.fillText("New Game", 60, 280 + 12);
+        gc.fillText("Continue", 60, 360 + 12);
+        gc.fillText("Settings", 60, 440 + 12);
     }
 }
