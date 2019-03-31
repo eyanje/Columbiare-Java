@@ -37,10 +37,11 @@ public class Animation {
      */
     public void tick() {
         subFrame += 1;
-        if (subFrame == frameLengths.get(frame)) {
+        if (frameLengths != null && frameLengths.size() > 0
+        && subFrame == frameLengths.get(frame)) {
             ++frame;
             subFrame = 0;
-            if (frame == frames.size()) {
+            if (frames != null && frame == frames.size()) {
                 frame = 0;
             }
         }
