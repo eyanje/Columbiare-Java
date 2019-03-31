@@ -54,7 +54,9 @@ public class Animation {
      * @param y the y-coordinate of the top-left corner of the animation
      */
     public void render(GraphicsContext gc, int x, int y) {
-        frames.get(frame).render(gc, x, y);
+        if (frame < frames.size() && frames.get(frame) != null) {
+            frames.get(frame).render(gc, x, y);
+        }
     }
 
     /**
@@ -66,6 +68,8 @@ public class Animation {
      * @param height the height of the animation, in pixels
      */
     public void render(GraphicsContext gc, int x, int y, int width, int height) {
-        frames.get(frame).render(gc, x, y, width, height);
+        if (frame < frames.size() && frames.get(frame) != null) {
+            frames.get(frame).render(gc, x, y, width, height);
+        }
     }
 }
