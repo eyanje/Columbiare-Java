@@ -2,6 +2,8 @@ package com.glowingpigeon.pigeonbound.graphics;
 
 import javafx.scene.canvas.*;
 
+import com.glowingpigeon.pigeonbound.data.ResourceManager;
+
 public class Image {
     private javafx.scene.image.Image img;
     private int x;
@@ -17,9 +19,16 @@ public class Image {
         img = new javafx.scene.image.Image(path);
         x = 0;
         y = 0;
-        while (img.getProgress() < 1);
-        this.width = (int) img.getWidth();
-        this.height = (int) img.getHeight();
+
+        img = ResourceManager.getImage(path);
+        if (img == null) {
+            width = 0;
+            height = 0;
+        } else {
+            while (img.getProgress() < 1);
+            this.width = (int) img.getWidth();
+            this.height = (int) img.getHeight();
+        }
     }
     
     /**
