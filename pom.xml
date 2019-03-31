@@ -83,4 +83,10 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <resources>
+    <resource>
+      <directory>res</directory>
+    </resource>
+  </resources>
 </project>
