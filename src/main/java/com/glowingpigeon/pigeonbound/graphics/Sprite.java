@@ -1,6 +1,8 @@
 package com.glowingpigeon.pigeonbound.graphics;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 
 import javafx.scene.canvas.*;
@@ -23,61 +25,79 @@ public class Sprite {
      */
     public Sprite(String path) {
         this();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            Animation current = null;
+        URL url = getClass().getClassLoader().getResource(path);
 
-            // Read each line in the file for data
-            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                String[] tokens = line.split(" ");
-                
-                switch (tokens[0]) {
-                    case "a": {
-                        // Add a new animation
-                        String name = line.substring(line.indexOf(' ') + 1);
-                        current = new Animation();
-                        addAnimation(name, current);
-                    }
-                    break;
-                    case "i": {
-                        // Add a new frame
+        // Only continue if the file was found
+        if (url != null) {
+            
+            try {
+                BufferedReader reader = new BufferedReader(
+                    new FileReader(
+                        new File(
+                            url.toURI()
+                        )
+                    )
+                );
+                Animation current = null;
 
-                        // Extract basic data
-                        int frameLength = Integer.parseInt(tokens[1]);
-                        String imgPath = tokens[0];
-
-                        Image frame = null;
-
-                        if (tokens.length <= 3 /* data only*/) {
-                            frame = new Image(imgPath);
-                        } else {
-                            // Parse first two numbers
-                            int t0 = Integer.parseInt(tokens[2]);
-                            int t1 = Integer.parseInt(tokens[3]);
-
-                            if (tokens.length <= 3 /* data */ + 2 /* width and height */) {
-                                frame = new Image(imgPath, t0, t1); // Width and height
-                            } else {
-                                // Parse next two numbers (width and height)
-                                int t2 = Integer.parseInt(tokens[2]);
-                                int t3 = Integer.parseInt(tokens[3]);
-                                frame = new Image(imgPath, t0, t1, t2, t3); // x y width height
+                // Read each line in the file for data
+                for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+                    line = line.trim();
+                    String[] tokens = line.split(" ");
+                    if (tokens.length >= 1) {
+                        switch (tokens[0]) {
+                            case "a": {
+                                // Add a new animation
+                                String name = line.substring(line.indexOf(' ') + 1);
+                                current = new Animation();
+                                addAnimation(name, current);
                             }
+                            break;
+                            case "i": {
+                                // Add a new frame
 
-                            if (current == null) {
-                                System.err.println("In " + path + " frame loaded before animation");
-                            } else {
-                                // Add frame to the last animation created
-                                current.addFrame(frameLength, frame);
+                                if (tokens.length >= 3) {
+                                    // Extract basic data
+                                    int frameLength = Integer.parseInt(tokens[1]);
+                                    String imgPath = tokens[2];
+
+                                    Image frame = null;
+
+                                    if (tokens.length <= 3 /* data only*/) {
+                                        frame = new Image(imgPath);
+                                    } else {
+                                        // Parse first two numbers
+                                        int t0 = Integer.parseInt(tokens[2]);
+                                        int t1 = Integer.parseInt(tokens[3]);
+
+                                        if (tokens.length <= 3 /* data */ + 2 /* width and height */) {
+                                            frame = new Image(imgPath, t0, t1); // Width and height
+                                        } else {
+                                            // Parse next two numbers (width and height)
+                                            int t2 = Integer.parseInt(tokens[2]);
+                                            int t3 = Integer.parseInt(tokens[3]);
+                                            frame = new Image(imgPath, t0, t1, t2, t3); // x y width height
+                                        }
+
+                                        if (current == null) {
+                                            System.err.println("In " + path + " frame loaded before animation");
+                                        } else {
+                                            // Add frame to the last animation created
+                                            current.addFrame(frameLength, frame);
+                                        }
+                                    }
+                                }
                             }
+                            break;
                         }
                     }
-                    break;
                 }
+                reader.close();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            reader.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
