@@ -2,8 +2,7 @@ package com.glowingpigeon.pigeonbound.audio;
 
 import javax.sound.sampled.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import com.glowingpigeon.pigeonbound.PigeonBound;
@@ -21,7 +20,9 @@ public final class AudioManager {
         } else {
             try {
                 AudioInputStream ais = AudioSystem.getAudioInputStream(
-                    PigeonBound.class.getClassLoader().getResourceAsStream(path)
+                    new BufferedInputStream(
+                        PigeonBound.class.getClassLoader().getResourceAsStream(path)
+                    )
                 );
                 Clip clip = AudioSystem.getClip();
                 clip.open(ais);
