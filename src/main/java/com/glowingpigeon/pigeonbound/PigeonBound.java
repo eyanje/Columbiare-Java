@@ -10,6 +10,7 @@ import javafx.stage.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
+import com.glowingpigeon.pigeonbound.audio.AudioManager;
 import com.glowingpigeon.pigeonbound.state.*;
 
 public class PigeonBound extends Application {
@@ -30,37 +31,35 @@ public class PigeonBound extends Application {
 
         // Add event handlers
 
-        EventHandler<WindowEvent> windowEventHandler = new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent event) {
-                state.windowEvent(event);
+        EventHandler<WindowEvent> windowEventHandler = (event) -> {
+            if (event.getEventType() == WindowEvent.WINDOW_CLOSE_REQUEST) {
+                AudioManager.stopMusic();
             }
+
+            state.windowEvent(event);
         };
         stage.setOnCloseRequest(windowEventHandler);
         stage.setOnHidden(windowEventHandler);
         stage.setOnHiding(windowEventHandler);
         stage.setOnShown(windowEventHandler);
-        EventHandler<MouseEvent> mouseEventHandler = new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                state.mouseEvent(event);
-            }
+        EventHandler<MouseEvent> mouseEventHandler = (event) -> {
+            state.mouseEvent(event);
         };
         root.setOnMouseMoved(mouseEventHandler);
         root.setOnMousePressed(mouseEventHandler);
         root.setOnMouseReleased(mouseEventHandler);
         root.setOnMouseClicked(mouseEventHandler);
         root.setOnMouseDragged(mouseEventHandler);
-        EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent event) {
-                state.keyEvent(event);
-            }
+        EventHandler<KeyEvent> keyEventHandler = (event) -> {
+            state.keyEvent(event);
         };
-        root.setOnKeyPressed(keyEventHandler);
-        root.setOnKeyReleased(keyEventHandler);
-        root.setOnKeyTyped(keyEventHandler);
+        scene.setOnKeyPressed(keyEventHandler);
+        scene.setOnKeyReleased(keyEventHandler);
+        scene.setOnKeyTyped(keyEventHandler);
 
         // Start timer
 
-        timer = new AnimationTimer(){
+        timer = new AnimationTimer() {
         
             @Override
             public void handle(long now) {
@@ -86,5 +85,9 @@ public class PigeonBound extends Application {
 
         timer.start();
 
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
