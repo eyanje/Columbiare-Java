@@ -1,0 +1,4 @@
+name Amia
+bounds 0 -512 64 64
+sprite sprites/columbiare/columbiare.spr
+dialogue dialogue/amia.dlg

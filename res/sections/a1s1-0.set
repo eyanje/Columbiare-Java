@@ -1,0 +1,20 @@
+# Teleport down
+pan 0 1024 1024
+
+# Pan around like an idiot
+wait 45
+pan 512 0 4
+wait 30
+pan 0 -256 4
+wait 30
+pan -1024 0 4
+wait 30
+
+text Fara Columbiare?
+text Fara I need your help!
+text Columbiare Yeah, I'm coming.
+text Columbiare Hold on.
+
+# Pan to Columbiare
+pan 512 -768 4
+section com.glowingpigeon.columbiare.state.premade.A1S1_1

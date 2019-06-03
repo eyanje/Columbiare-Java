@@ -1,0 +1,36 @@
+t a1s1
+
+s Fara
+l Are you going to get some seeds?
+s Columbiare
+l Yeah, I'm going.
+l Get well soon.
+s Fara
+l Thanks. It's all because of you.
+
+c
+s Fara
+l Bye, Columbiare! Be safe!
+
+t a3s1
+
+s Fara
+l Columbiare, got the seeds?
+
+s Columbiare
+l No
+
+s Fara
+l What happened?
+l Are you ok?
+
+s Columbiare
+l ...
+
+t a3s2
+s Fara
+l what have you done?
+l You have to leave now.
+
+s Columbiare
+l I refuse. It wasn't my fault.

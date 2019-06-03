@@ -1,0 +1,8 @@
+nonsolid 0 0 1024 512 sprites/floor/floor.spr
+nonsolid 192 128 128 128 sprites/bed/bed.spr
+nonsolid 768 128 128 128 sprites/bed/bed.spr
+
+nonsolid 4096 2048 4096 2048 sprites/grass/grass.spr
+
+
+teleport 448 512 128 64 5056 3776

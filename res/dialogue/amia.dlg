@@ -1,0 +1,27 @@
+t a1s1
+s Amia
+l Hi, Columbiare!
+l Are you going to get some seeds?
+s Columbiare
+l Hmm.
+l Maybe not today.
+s Amia
+l You promised you would yesterday.
+
+c
+s Amia
+l Are you going to go?
+s Columbiare
+l No, I'm just a little tired.
+s Amia
+l ...
+l ...
+l ...
+l Ok.
+
+t a2
+s Columbiare
+l No...
+d avalanche
+
+t a3

@@ -1,0 +1,12 @@
+https://github.com/javafxports/openjdk-jfx/issues/236
+https://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven
+
+https://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven
+https://stackoverflow.com/questions/29366373/maven-error-could-not-find-or-load-main-class
+http://www.adam-bien.com/roller/abien/entry/how_to_compile_java_fx
+https://openjfx.io/openjfx-docs/#maven
+https://github.com/openjfx/samples/blob/master/CommandLine/Modular/Maven/hellofx/pom.xml
+
+https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collection.html#toArray(java.util.function.IntFunction)
+
+https://www.baeldung.com/java-9-modularity

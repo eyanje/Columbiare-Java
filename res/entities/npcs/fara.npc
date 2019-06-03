@@ -1,0 +1,4 @@
+name Fara
+bounds 1024 0 64 64
+sprite sprites/columbiare/columbiare.spr
+dialogue dialogue/fara.dlg
