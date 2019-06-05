@@ -96,64 +96,67 @@ public class NPC extends Entity {
             String head = tokens[0];
             String body = first.substring(first.indexOf(' ') + 1);
 
-            switch (head) {
-                case "move": {
-                    int x = Integer.parseInt(tokens[1]);
-                    int y = Integer.parseInt(tokens[2]);
-                    int speed = 4;
-                    if (tokens.length >= 4) {
-                        speed = Integer.parseInt(tokens[3]);
-                    }
+            if (head != null && !head.isEmpty()) {
 
-                    int traX = 0;
-                    int traY = 0;
-
-                    if (x > 0) {
-                        traX = speed;
-                        x -= speed;
-                        if (x < 0) {
-                            traX += x;
-                            x = 0;
+                switch (head) {
+                    case "move": {
+                        int x = Integer.parseInt(tokens[1]);
+                        int y = Integer.parseInt(tokens[2]);
+                        int speed = 4;
+                        if (tokens.length >= 4) {
+                            speed = Integer.parseInt(tokens[3]);
                         }
-                    } else if (x < 0) {
-                        traX = -speed;
-
+    
+                        int traX = 0;
+                        int traY = 0;
+    
                         if (x > 0) {
-                            traX += x;
-                            x = 0;
+                            traX = speed;
+                            x -= speed;
+                            if (x < 0) {
+                                traX += x;
+                                x = 0;
+                            }
+                        } else if (x < 0) {
+                            traX = -speed;
+    
+                            if (x > 0) {
+                                traX += x;
+                                x = 0;
+                            }
                         }
-                    }
-                    if (y > 0) {
-                        traY = speed;
-                        y -= speed;
-                        if (y < 0) {
-                            traY += y;
-                            y = 0;
-                        }
-                    } else if (y < 0) {
-                        traY = -speed;
-                        y += speed;
                         if (y > 0) {
-                            traY += y;
-                            y = 0;
+                            traY = speed;
+                            y -= speed;
+                            if (y < 0) {
+                                traY += y;
+                                y = 0;
+                            }
+                        } else if (y < 0) {
+                            traY = -speed;
+                            y += speed;
+                            if (y > 0) {
+                                traY += y;
+                                y = 0;
+                            }
+                        }
+    
+                        translate(traX, traY);
+    
+                        if (x != 0 || y != 0) {
+                            dataContainer.push("move " + x + " " + y + " " + speed);
                         }
                     }
-
-                    translate(traX, traY);
-
-                    if (x != 0 || y != 0) {
-                        dataContainer.push("move " + x + " " + y + " " + speed);
+                    break;
+                    case "anim": {
+                        getSprite().setCurrentAnimation(body);
+                        System.out.println("Set anim to " + body);
                     }
+                    break;
+                    default:
+                    System.out.println("Unknown action " + tokens[0]);
+                    break;
                 }
-                break;
-                case "anim": {
-                    getSprite().setCurrentAnimation(body);
-                    System.out.println("Set anim to " + body);
-                }
-                break;
-                default:
-                System.out.println("Unknown action " + tokens[0]);
-                break;
             }
         }
 

@@ -44,6 +44,115 @@ public class Pattern extends Image {
         render(gc, x, y, getWidth(), getHeight());
     }
 
+    private void renderComplex(GraphicsContext gc, int x, int y, int width, int height) {
+        for (int sy = y; sy < y + height; sy += getHeight()) {
+            for (int sx = x; sx < x + width; sx += getWidth()) {
+                // Draw it four times: Four quadrants
+                int splitX = offsetX % getWidth();
+                int splitY = offsetY % getHeight();
+                int maxWidth = getWidth();
+                int maxHeight = getHeight();
+                
+                if (sx + getWidth() > width) {
+                    maxWidth = width - sx;
+                }
+                if (sy + getHeight() > height) {
+                    maxHeight = height - sy;
+                }
+            
+            // The width of the left column: splitX - 0
+            // Remember this becomes the right column, so if
+            // getWidth() - splitx > maxWidth, this should be 0
+            int preSplitWidth = splitX;
+            if (getWidth() - splitX > maxWidth) {
+                preSplitWidth = 0;
+            } else if (getWidth() > maxWidth) {
+                preSplitWidth = maxWidth - (getWidth() - splitX);
+            }
+            // The width of the right column: maxWidth - splitX
+            // Remember that this becomes the left column when drawn, so if
+            // postSplitWidth > maxWidth, postSplitWidth = maxWidth
+            int postSplitWidth = getWidth() - splitX;
+            if (postSplitWidth > maxWidth)
+            postSplitWidth = maxWidth;
+            
+            // The height of the top row: splitY
+            // This becomes the bottom row, so if getHeight() - splitY > maxHeight, this is 0.
+            int preSplitHeight = splitY;
+            if (getHeight() - splitY > maxHeight) {
+                preSplitHeight = 0;
+            } else if (getHeight() > maxHeight) {
+                preSplitHeight = maxHeight - (getHeight() - splitY);
+            }
+            // The width of the bottom column, maxHeight - splitY
+            // This becomes the top row when drawn, so if
+            // plostSplitHeight > maxHeight, = maxHeight
+            int postSplitHeight = getHeight() - splitY;
+            if (postSplitHeight > maxHeight)
+            postSplitHeight = maxHeight;
+            
+            // Draw the top-left corner of the reassembled image
+            gc.drawImage(getImage(),
+            getX() + splitX, // sub x
+            getY() + splitY, // sub y
+            getWidth() - splitX, // sub width
+            getHeight() - splitY, // sub height
+            sx, // rendered x
+            sy, // rendered y
+            postSplitWidth, // rendered width
+                postSplitHeight // rendered height
+                );
+                
+                // Draw top-right corner of the reassembled image
+                // Aka the bottom left of the old image
+                gc.drawImage(getImage(),
+                getX(), // sub x
+                getY() + splitY, // sub y
+                splitX, // sub width
+                getHeight() - splitY, // sub height
+                sx + (getWidth() - splitX), // rendered x
+                sy, // rendered y
+                preSplitWidth, // rendered width
+                postSplitHeight // rendered height
+                );
+                
+            // Draw the bottom-left corner of the reassembled image
+            // Aka the top right corner of the old image
+            gc.drawImage(getImage(),
+                getX() + splitX, // sub x
+                getY(), // sub y
+                getWidth() - splitX, // sub width
+                splitY, // sub height
+                sx, // rendered x
+                sy + (getHeight() - splitY), // rendered y
+                postSplitWidth, // rendered width
+                preSplitHeight // rendered height
+                );
+                
+                // Draw the bottom-right corner of the reassembled image
+                // Aka the top left corner of the old image
+                gc.drawImage(getImage(),
+                getX(), // sub x
+                getY(), // sub y
+                splitX, // sub width
+                splitY, // sub height
+                sx + (getWidth() - splitX), // rendered x
+                sy + (getHeight() - splitY), // rendered y
+                preSplitWidth, // rendered width
+                preSplitHeight // rendered height
+                );
+            }
+        }
+    }
+
+    public void renderSimple(GraphicsContext gc, int x, int y, int width, int height) {
+        for (int sx = x; sx < x + width; sx += getWidth()) {
+            for (int sy = y; sy < y + height; sy += getHeight()) {
+                gc.drawImage(getImage(), sx, sy);
+            }
+        }
+    }
+
     /**
      * Renders the pattern in a rectangle of the specified x, y, width, height
      * @param x the x-coordinate of the top-left corner of the rectangle
@@ -54,104 +163,7 @@ public class Pattern extends Image {
     @Override
     public void render(GraphicsContext gc, int x, int y, int width, int height) {
         if (getImage() != null) {
-            for (int sy = y; sy < y + height; sy += getHeight()) {
-                for (int sx = x; sx < x + width; sx += getWidth()) {
-                    // Draw it four times: Four quadrants
-                    int splitX = offsetX % getWidth();
-                    int splitY = offsetY % getHeight();
-                    int maxWidth = getWidth();
-                    int maxHeight = getHeight();
-                    
-                    if (sx + getWidth() > width) {
-                        maxWidth = width - sx;
-                    }
-                    if (sy + getHeight() > height) {
-                        maxHeight = height - sy;
-                    }
-                
-                // The width of the left column: splitX - 0
-                // Remember this becomes the right column, so if
-                // getWidth() - splitx > maxWidth, this should be 0
-                int preSplitWidth = splitX;
-                if (getWidth() - splitX > maxWidth) {
-                    preSplitWidth = 0;
-                } else if (getWidth() > maxWidth) {
-                    preSplitWidth = maxWidth - (getWidth() - splitX);
-                }
-                // The width of the right column: maxWidth - splitX
-                // Remember that this becomes the left column when drawn, so if
-                // postSplitWidth > maxWidth, postSplitWidth = maxWidth
-                int postSplitWidth = getWidth() - splitX;
-                if (postSplitWidth > maxWidth)
-                postSplitWidth = maxWidth;
-                
-                // The height of the top row: splitY
-                // This becomes the bottom row, so if getHeight() - splitY > maxHeight, this is 0.
-                int preSplitHeight = splitY;
-                if (getHeight() - splitY > maxHeight) {
-                    preSplitHeight = 0;
-                } else if (getHeight() > maxHeight) {
-                    preSplitHeight = maxHeight - (getHeight() - splitY);
-                }
-                // The width of the bottom column, maxHeight - splitY
-                // This becomes the top row when drawn, so if
-                // plostSplitHeight > maxHeight, = maxHeight
-                int postSplitHeight = getHeight() - splitY;
-                if (postSplitHeight > maxHeight)
-                postSplitHeight = maxHeight;
-                
-                // Draw the top-left corner of the reassembled image
-                gc.drawImage(getImage(),
-                getX() + splitX, // sub x
-                getY() + splitY, // sub y
-                getWidth() - splitX, // sub width
-                getHeight() - splitY, // sub height
-                sx, // rendered x
-                sy, // rendered y
-                postSplitWidth, // rendered width
-                    postSplitHeight // rendered height
-                    );
-                    
-                    // Draw top-right corner of the reassembled image
-                    // Aka the bottom left of the old image
-                    gc.drawImage(getImage(),
-                    getX(), // sub x
-                    getY() + splitY, // sub y
-                    splitX, // sub width
-                    getHeight() - splitY, // sub height
-                    sx + (getWidth() - splitX), // rendered x
-                    sy, // rendered y
-                    preSplitWidth, // rendered width
-                    postSplitHeight // rendered height
-                    );
-                    
-                // Draw the bottom-left corner of the reassembled image
-                // Aka the top right corner of the old image
-                gc.drawImage(getImage(),
-                    getX() + splitX, // sub x
-                    getY(), // sub y
-                    getWidth() - splitX, // sub width
-                    splitY, // sub height
-                    sx, // rendered x
-                    sy + (getHeight() - splitY), // rendered y
-                    postSplitWidth, // rendered width
-                    preSplitHeight // rendered height
-                    );
-                    
-                    // Draw the bottom-right corner of the reassembled image
-                    // Aka the top left corner of the old image
-                    gc.drawImage(getImage(),
-                    getX(), // sub x
-                    getY(), // sub y
-                    splitX, // sub width
-                    splitY, // sub height
-                    sx + (getWidth() - splitX), // rendered x
-                    sy + (getHeight() - splitY), // rendered y
-                    preSplitWidth, // rendered width
-                    preSplitHeight // rendered height
-                    );
-                }
-            }
+            renderSimple(gc, x, y, width, height);
         }
     }
 }

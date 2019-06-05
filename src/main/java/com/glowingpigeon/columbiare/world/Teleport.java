@@ -7,6 +7,8 @@ public class Teleport extends BackgroundObject {
 
     public Teleport(int x, int y, int width, int height, int destX, int destY) {
         super(null, x, y, width, height);
+        this.destX = destX;
+        this.destY = destY;
     }
     
     public void update() {

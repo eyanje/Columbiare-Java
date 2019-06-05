@@ -24,98 +24,102 @@ public class Sprite {
      */
     public Sprite(String path) {
         this();
-        
-        Animation current = null;
 
-        if (path != null) {
-            // Read each line in the file for data
-            for (String line : ResourceManager.getLines(path)) {
-                line = line.trim();
-                String[] tokens = line.split(" ");
-                if (tokens.length >= 1) {
-                    switch (tokens[0]) {
-                        case "a": {
-                            // Add a new animation
-                            String name = line.substring(line.indexOf(' ') + 1);
-                            current = new Animation();
-                            addAnimation(name, current);
-                        }
-                        break;
-                        case "i": {
-                            // Add a new frame
+        if (!"null".equals(path)) {
+            
+            Animation current = null;
     
-                            if (tokens.length >= 3) {
-                                // Extract basic data
-                                int frameLength = Integer.parseInt(tokens[1]);
-                                String imgPath = tokens[2];
-    
-                                Image frame = null;
-    
-                                if (tokens.length <= 3 /* data only*/) {
-                                    frame = new Image(imgPath);
-                                } else {
-                                    // Parse first two numbers
-                                    int t0 = Integer.parseInt(tokens[3]);
-                                    int t1 = Integer.parseInt(tokens[4]);
-    
-                                    if (tokens.length <= 3 /* data */ + 2 /* width and height */) {
-                                        frame = new Image(imgPath, t0, t1); // Width and height
+            if (path != null) {
+                // Read each line in the file for data
+                for (String line : ResourceManager.getLines(path)) {
+                    line = line.trim();
+                    String[] tokens = line.split(" ");
+                    if (tokens.length >= 1) {
+                        switch (tokens[0]) {
+                            case "a": {
+                                // Add a new animation
+                                String name = line.substring(line.indexOf(' ') + 1);
+                                current = new Animation();
+                                addAnimation(name, current);
+                            }
+                            break;
+                            case "i": {
+                                // Add a new frame
+        
+                                if (tokens.length >= 3) {
+                                    // Extract basic data
+                                    int frameLength = Integer.parseInt(tokens[1]);
+                                    String imgPath = tokens[2];
+        
+                                    Image frame = null;
+        
+                                    if (tokens.length <= 3 /* data only*/) {
+                                        frame = new Image(imgPath);
                                     } else {
-                                        // Parse next two numbers (width and height)
-                                        int t2 = Integer.parseInt(tokens[5]);
-                                        int t3 = Integer.parseInt(tokens[6]);
-                                        frame = new Image(imgPath, t0, t1, t2, t3); // x y width height
+                                        // Parse first two numbers
+                                        int t0 = Integer.parseInt(tokens[3]);
+                                        int t1 = Integer.parseInt(tokens[4]);
+        
+                                        if (tokens.length <= 3 /* data */ + 2 /* width and height */) {
+                                            frame = new Image(imgPath, t0, t1); // Width and height
+                                        } else {
+                                            // Parse next two numbers (width and height)
+                                            int t2 = Integer.parseInt(tokens[5]);
+                                            int t3 = Integer.parseInt(tokens[6]);
+                                            frame = new Image(imgPath, t0, t1, t2, t3); // x y width height
+                                        }
+                                    }
+        
+                                    if (current == null) {
+                                        System.err.println("In " + path + " frame loaded before animation");
+                                    } else {
+                                        // Add frame to the last animation created
+                                        current.addFrame(frameLength, frame);
                                     }
                                 }
-    
-                                if (current == null) {
-                                    System.err.println("In " + path + " frame loaded before animation");
-                                } else {
-                                    // Add frame to the last animation created
-                                    current.addFrame(frameLength, frame);
-                                }
                             }
-                        }
-                        break;
-                        case "p": {
-                            // Add a new pattern
-    
-                            if (tokens.length >= 3) {
-                                // Extract basic data
-                                int frameLength = Integer.parseInt(tokens[1]);
-                                String imgPath = tokens[2];
-    
-                                Image frame = null;
-    
-                                if (tokens.length <= 3 /* data only*/) {
-                                    frame = new Pattern(imgPath);
-                                } else {
-                                    // Parse first two numbers
-                                    int t0 = Integer.parseInt(tokens[2]);
-                                    int t1 = Integer.parseInt(tokens[3]);
-    
-                                    if (tokens.length <= 3 /* data */ + 2 /* width and height */) {
-                                        frame = new Pattern(imgPath, t0, t1); // Width and height
+                            break;
+                            case "p": {
+                                // Add a new pattern
+        
+                                if (tokens.length >= 3) {
+                                    // Extract basic data
+                                    int frameLength = Integer.parseInt(tokens[1]);
+                                    String imgPath = tokens[2];
+        
+                                    Image frame = null;
+        
+                                    if (tokens.length <= 3 /* data only*/) {
+                                        frame = new Pattern(imgPath);
                                     } else {
-                                        // Parse next two numbers (width and height)
-                                        int t2 = Integer.parseInt(tokens[2]);
-                                        int t3 = Integer.parseInt(tokens[3]);
-                                        frame = new Pattern(imgPath, t0, t1, t2, t3); // x y width height
+                                        // Parse first two numbers
+                                        int t0 = Integer.parseInt(tokens[2]);
+                                        int t1 = Integer.parseInt(tokens[3]);
+        
+                                        if (tokens.length <= 3 /* data */ + 2 /* width and height */) {
+                                            frame = new Pattern(imgPath, t0, t1); // Width and height
+                                        } else {
+                                            // Parse next two numbers (width and height)
+                                            int t2 = Integer.parseInt(tokens[2]);
+                                            int t3 = Integer.parseInt(tokens[3]);
+                                            frame = new Pattern(imgPath, t0, t1, t2, t3); // x y width height
+                                        }
+                                    }
+        
+                                    if (current == null) {
+                                        System.err.println("In " + path + " frame loaded before animation");
+                                    } else {
+                                        // Add frame to the last animation created
+                                        current.addFrame(frameLength, frame);
                                     }
                                 }
-    
-                                if (current == null) {
-                                    System.err.println("In " + path + " frame loaded before animation");
-                                } else {
-                                    // Add frame to the last animation created
-                                    current.addFrame(frameLength, frame);
-                                }
                             }
+                            break;
                         }
-                        break;
                     }
                 }
             }
+        
         }
     }
     

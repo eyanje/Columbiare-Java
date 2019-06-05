@@ -6,6 +6,7 @@ import com.glowingpigeon.columbiare.world.entity.NPC;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.*;
+import javafx.scene.paint.Color;
 import javafx.stage.WindowEvent;
 
 public class PlayState extends GameState {
@@ -60,6 +61,8 @@ public class PlayState extends GameState {
 
         gc.setTransform(1, 0, 0, 1, 0, 0);
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        gc.setFill(Color.rgb(6, 0, 12));
+        gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         
         section.render();
     }

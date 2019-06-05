@@ -1,6 +1,7 @@
 package com.glowingpigeon.columbiare.state;
 
 import javafx.scene.canvas.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -21,15 +22,8 @@ public class TitleState extends GameState {
     }
 
     @Override
-    public void mouseEvent(MouseEvent e) {
-        if (e.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
-            transition = true;
-        }
-    }
-
-    @Override
     public void keyEvent(KeyEvent e) {
-        if (e.getEventType().equals(KeyEvent.KEY_RELEASED)) {
+        if (e.getEventType().equals(KeyEvent.KEY_RELEASED) && e.getCode() == KeyCode.Z) {
             transition = true;
         }
     }

@@ -1,4 +1,4 @@
 name Test
-bounds 0 128 64 64
-sprite sprites/npc/test/test.spr
+bounds 896 1056 64 64
+sprite sprites/chest/chest.spr
 dialogue dialogue/test.dlg

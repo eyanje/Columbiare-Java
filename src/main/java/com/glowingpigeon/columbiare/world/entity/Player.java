@@ -68,10 +68,10 @@ public class Player extends Entity {
 
         for (Teleport teleport : save.getWorld().getTeleports()) {
             if (
-                getX() <= teleport.getX() + teleport.getWidth() &&
-                getX() + getWidth() >= teleport.getX() &&
-                getY() <= teleport.getY() &&
-                getY() + getHeight() >= teleport.getY()
+                getX() < teleport.getX() + teleport.getWidth() &&
+                getX() + getWidth() > teleport.getX() &&
+                getY() < teleport.getY() &&
+                getY() + getHeight() > teleport.getY()
             ) {
                 setPosition(teleport.getDestX(), teleport.getDestY());
             }
@@ -105,19 +105,13 @@ public class Player extends Entity {
      */
     public int getFacingX() {
         switch (direction) {
-            case 0:
-            case 1:
-            return 0;
             case 2:
-            case 3:
-            case 4:
             return -1;
-            case 5:
-            case 6:
-            case 7:
+            case 3:
             return 1;
+            default:
+            return 0;
         }
-        return 0;
     }
 
     /**
@@ -126,12 +120,8 @@ public class Player extends Entity {
     public int getFacingY() {
         switch (direction) {
             case 0:
-            case 2:
-            case 5:
             return -1;
             case 1:
-            case 4:
-            case 7:
             return 1;
             default:
             return 0;

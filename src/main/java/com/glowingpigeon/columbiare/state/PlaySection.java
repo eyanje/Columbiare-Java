@@ -97,6 +97,13 @@ public class PlaySection extends Section {
                         break;
                     }
                 }
+                for (Obstacle o : getWorld().getSolids()) {
+                    if (o.contains(interactX, interactY) && o.getDescription() != null) {
+                        // Add a line for an abstacle
+                        getUI().getTextBox().addAdjustedLine("Columbiare", o.getDescription());
+                        break;
+                    }
+                }
             }
         }
 

@@ -109,23 +109,27 @@ public abstract class Entity implements Renderable, SolidObject {
                     getY() + getHeight()
                 ) - Math.max(s.getY(), getY());
 
-                 // Move by y axis
-                if (Math.abs(collideWidth) >= Math.abs(collideHeight)) {
-                    if (s.getY() < getY()) {
-                        collides = collides | 0b0001;
-                    } else if (s.getY() > getY()) {
-                        collides = collides | 0b0010;
-                    }
+                if ((collideWidth | collideHeight) != 0) {
+
+                    // Move by y axis
+                   if (Math.abs(collideWidth) >= Math.abs(collideHeight)) {
+                       if (s.getY() < getY()) {
+                           collides = collides | 0b0001;
+                       } else if (s.getY() > getY()) {
+                           collides = collides | 0b0010;
+                       }
+                   }
+    
+                   // Move by x axis
+                   if (Math.abs(collideWidth) <= Math.abs(collideHeight)) {
+                       if (s.getX() < getX()) {
+                           collides = collides | 0b0100;
+                       } else if (s.getX() > getX()) {
+                           collides = collides | 0b1000;
+                       }
+                   }
                 }
 
-                // Move by x axis
-                if (Math.abs(collideWidth) <= Math.abs(collideHeight)) {
-                    if (s.getX() < getX()) {
-                        collides = collides | 0b0100;
-                    } else if (s.getX() > getX()) {
-                        collides = collides | 0b1000;
-                    }
-                }
             }
         }
 

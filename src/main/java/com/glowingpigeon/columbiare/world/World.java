@@ -25,11 +25,11 @@ public class World {
         nonsolids = new ArrayList<>();
         teleports = new ArrayList<>();
         for (String line : ResourceManager.getLines(path)) {
-            if (!line.isEmpty()) {
+            if (!line.isEmpty() && line.contains(" ")) {
                 String type = line.substring(0, line.indexOf(' '));
                 if (!"#".equals(type)) {
-
                     line = line.substring(line.indexOf(' ') + 1);
+
                     String x = line.substring(0, line.indexOf(' '));
                     line = line.substring(line.indexOf(' ') + 1);
                     String y = line.substring(0, line.indexOf(' '));
@@ -38,11 +38,23 @@ public class World {
                     line = line.substring(line.indexOf(' ') + 1);
                     String height = line.substring(0, line.indexOf(' '));
                     line = line.substring(line.indexOf(' ') + 1);
+
                     switch (type) {
                         case "solid": {
-                            solids.add(new Obstacle(line,
-                            Integer.parseInt(x), Integer.parseInt(y),
-                            Integer.parseInt(width), Integer.parseInt(height)));
+                            if (line.contains(" ")) {
+                                String dataPath = line.substring(0, line.indexOf(' '));
+                                line = line.substring(line.indexOf(' ') + 1);
+
+                                solids.add(new Obstacle(dataPath,
+                                Integer.parseInt(x), Integer.parseInt(y),
+                                Integer.parseInt(width), Integer.parseInt(height),
+                                line));
+                            } else {
+                                solids.add(new Obstacle(line,
+                                Integer.parseInt(x), Integer.parseInt(y),
+                                Integer.parseInt(width), Integer.parseInt(height),
+                                null));
+                            }
                         }
                         break;
                         case "nonsolid": {

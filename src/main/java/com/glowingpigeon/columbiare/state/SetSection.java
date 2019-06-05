@@ -129,6 +129,26 @@ public class SetSection extends Section {
                     }
                 }
                 break;
+                case "panto": {
+                    String[] tokens = data.split(" ");
+                    int panX = Integer.parseInt(tokens[0]);
+                    int panY = Integer.parseInt(tokens[1]);
+                    int speed = 1;
+                    // Load a new speed
+                    if (tokens.length >= 3) {
+                        speed = Integer.parseInt(tokens[2]);
+                    }
+                    actions.push("pan " + (panX - cameraX) + " " + (panY - cameraY) + " " + speed);
+                }
+                break;
+                case "tp": {
+                    String[] tokens = data.split(" ");
+                    int tpX = Integer.parseInt(tokens[0]);
+                    int tpY = Integer.parseInt(tokens[1]);
+                    cameraX = tpX;
+                    cameraY = tpY;
+                }
+                break;
                 case "npc": {
                     String name = data.substring(0, data.indexOf(' '));
                     data = data.substring(data.indexOf(' ') + 1);

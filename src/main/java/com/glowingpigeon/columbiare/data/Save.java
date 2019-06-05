@@ -85,7 +85,11 @@ public class Save {
                         line = line.substring(line.indexOf(' ') + 1); // crop out status
                         line = line.substring(line.indexOf(' ') + 1); // crop out x
                         line = line.substring(line.indexOf(' ') + 1); // crop out y
-                        line = line.substring(line.indexOf(' ') + 1); // crop out path
+                        if (line.indexOf(' ') == -1) {
+                            line = "";
+                        } else {
+                            line = line.substring(line.indexOf(' ') + 1); // crop out path
+                        }
                         
                         npcs.add(new NPC(
                             pieces[0],
