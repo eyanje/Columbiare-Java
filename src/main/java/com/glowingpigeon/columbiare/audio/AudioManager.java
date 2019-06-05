@@ -43,11 +43,13 @@ public final class AudioManager {
     }
 
     public static void playMusic(String path) {
-        stopMusic();
         Clip clip = getClip(path);
-        clip.loop(Clip.LOOP_CONTINUOUSLY); 
-        clip.start();
-        currentClip = clip;
+        if (clip != currentClip) {
+            stopMusic();
+            clip.loop(Clip.LOOP_CONTINUOUSLY); 
+            clip.start();
+            currentClip = clip;
+        }
     }
 
     public static void stopMusic() {

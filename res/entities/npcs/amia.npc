@@ -1,4 +1,4 @@
 name Amia
-bounds 0 -512 64 64
-sprite sprites/columbiare/columbiare.spr
+bounds 6114 2056 64 64
+sprite sprites/npc/amia/amia.spr
 dialogue dialogue/amia.dlg

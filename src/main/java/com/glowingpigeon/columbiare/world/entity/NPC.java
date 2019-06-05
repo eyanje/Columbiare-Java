@@ -150,11 +150,10 @@ public class NPC extends Entity {
                     break;
                     case "anim": {
                         getSprite().setCurrentAnimation(body);
-                        System.out.println("Set anim to " + body);
                     }
                     break;
                     default:
-                    System.out.println("Unknown action " + tokens[0]);
+                    dataContainer.push(first);
                     break;
                 }
             }

@@ -160,6 +160,10 @@ public class Save {
         return progress;
     }
 
+    public void setProgress(String progress) {
+        this.progress = progress;
+    }
+
     public String getSectionName() {
         return sectionName;
     }

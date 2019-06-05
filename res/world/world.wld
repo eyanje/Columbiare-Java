@@ -18,20 +18,20 @@ solid 768 96 128 32 sprites/books/books.spr A set of books I read
 nonsolid 4096 2048 4096 2048 sprites/grass/grass.spr
 
 # Your House
-nonsolid 4544 3008 1024 768 sprites/house/house.spr
-solid 4544 3008 1024 640 null
-solid 4544 3648 448 128 null
-solid 5120 3648 448 128 null
-teleport 448 512 128 64 5024 3776
-teleport 4992 3712 128 64 448 384
+nonsolid 4544 2496 1024 768 sprites/house/house.spr
+solid 4544 2496 1024 640 null
+solid 4544 3136 448 128 null
+solid 5120 3136 448 128 null
+teleport 448 512 128 64 5024 3264
+teleport 4992 3200 128 64 448 384
 
 # House to the right
-nonsolid 5824 3008 1024 768 sprites/house/house.spr
-solid 5824 3008 1024 640 null
-solid 5824 3648 448 128 null
-solid 6400 3648 448 128 null
-teleport 448 1536 128 64 6304 3776
-teleport 6272 3712 128 64 448 1408
+nonsolid 5824 2496 1024 768 sprites/house/house.spr
+solid 5824 2496 1024 640 null
+solid 5824 3136 448 128 null
+solid 6400 3136 448 128 null
+teleport 448 1536 128 64 6304 3264
+teleport 6272 3200 128 64 448 1408
 
 # floor
 nonsolid 64 1088 896 384 sprites/floor/floor.spr
@@ -60,15 +60,17 @@ solid 384 948 512 160 sprites/books/books.spr Some weird books about aerodynamic
 # START THE MOUNTAINS!
 #
 
-nonsolid 4096 0 4096 2048 sprites/dirt/dirt.spr
+nonsolid 3584 0 5120 2048 sprites/dirt/dirt.spr
 # Some boulders
-solid 4096 0 1984 2048 sprites/boulder/boulderpat.spr
-solid 6208 0 1984 2048 sprites/boulder/boulderpat.spr
+solid 3584 0 2496 2048 sprites/boulder/boulderpat.spr
+solid 6208 0 2496 2048 sprites/boulder/boulderpat.spr
 
 solid 6080 0 128 384 sprites/boulder/boulderpat.spr
 
-
+solid 6114 400 64 64 sprites/flower/flower.spr The flowers I bring to Fara
 
 # WALLLS
 
-solid 4032 0 1024 64 sprites/wall/wall.spr
+solid 3584 2048 512 2048 sprites/tree/treepat.spr
+solid 8192 2048 512 2048 sprites/tree/treepat.spr
+solid 3584 4096 4096 3072 sprites/tree/treepat.spr

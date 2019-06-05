@@ -1,4 +1,4 @@
 name Fara
-bounds 1024 0 64 64
-sprite sprites/columbiare/columbiare.spr
+bounds 320 64 64 64
+sprite sprites/npc/fara/fara.spr
 dialogue dialogue/fara.dlg

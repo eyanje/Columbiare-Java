@@ -2,12 +2,12 @@
 tp 7168 2048 7168
 # pan 0 1500 4
 # pan -1024 0 4
-panto 5024 3776 4
+panto 5024 3264 4
 
 wait 30
 
 tp 480 384
-panto 835 182 4
+panto 352 96 4
 
 # Pan around like an idiot
 # wait 45
@@ -20,7 +20,10 @@ panto 835 182 4
 
 text Fara Columbiare?
 text Fara I need your help!
-text Columbiare Yeah, I'm coming.
+
+panto 835 182 4
+
+text Columbiare Yeah, I'm right here.
 text Columbiare Hold on.
 
 wait 30
